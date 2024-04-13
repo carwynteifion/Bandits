@@ -3,12 +3,14 @@ using System.Data.SQLite;
 
 namespace Bandits
 {
-    public partial class Bandits : Form
+    public partial class Form1 : Form
     {
-        public Bandits()
+        public Form1()
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
+            MenuDisconnect.Enabled = false;
+            TsBtnDisconnect.Enabled = false;
         }
 
         // Create connection object
@@ -34,12 +36,22 @@ namespace Bandits
                     if (connection.State == System.Data.ConnectionState.Open)
                     {
                         ConnectionStatus.Text = "Connected to: " + Path.GetFileName(openFileDialog1.FileName);
+                        ConnectionStatus.Image = Properties.Resources.link;
+                        MenuDisconnect.Enabled = true;
+                        MenuConnectTo.Enabled = false;
+                        TsBtnConnectTo.Enabled = false;
+                        TsBtnDisconnect.Enabled = true;
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                     ConnectionStatus.Text = "Disconnected";
+                    ConnectionStatus.Image = Properties.Resources.unlink;
+                    MenuDisconnect.Enabled = false;
+                    MenuConnectTo.Enabled = true;
+                    TsBtnConnectTo.Enabled = true;
+                    TsBtnDisconnect.Enabled = false;
                 }
             }
             else
@@ -53,6 +65,11 @@ namespace Bandits
             MenuConnectTo_Click(sender, e);
         }
 
+        private void TsDisconnect_Click(object sender, EventArgs e)
+        {
+            MenuDisconnect_Click(sender, e);
+        }
+
         private void MenuAbout_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Developed by Carwyn Thomas", "About Bandits");
@@ -62,6 +79,11 @@ namespace Bandits
         {
             connection.Close();
             ConnectionStatus.Text = "Disconnected";
+            ConnectionStatus.Image = Properties.Resources.unlink;
+            MenuDisconnect.Enabled = false;
+            MenuConnectTo.Enabled = true;
+            TsBtnConnectTo.Enabled = true;
+            TsBtnDisconnect.Enabled = false;
         }
 
         private void MenuExit_Click(object sender, EventArgs e)
@@ -87,6 +109,12 @@ namespace Bandits
             {
                 e.Cancel = true;
             }
+        }
+
+        private void MenuModifyDetails_Click(object sender, EventArgs e)
+        {
+            Form2 ModifyCustomer = new(ConnectionString);
+            ModifyCustomer.ShowDialog();
         }
     }
 }
