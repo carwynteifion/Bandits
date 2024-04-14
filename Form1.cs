@@ -11,6 +11,8 @@ namespace Bandits
             StartPosition = FormStartPosition.CenterScreen;
             MenuDisconnect.Enabled = false;
             TsBtnDisconnect.Enabled = false;
+            MenuEdit.Enabled = false;
+            MenuView.Enabled = false;
         }
 
         // Create connection object
@@ -41,6 +43,8 @@ namespace Bandits
                         MenuConnectTo.Enabled = false;
                         TsBtnConnectTo.Enabled = false;
                         TsBtnDisconnect.Enabled = true;
+                        MenuEdit.Enabled = true;
+                        MenuView.Enabled = true;
                     }
                 }
                 catch (Exception ex)
@@ -52,6 +56,8 @@ namespace Bandits
                     MenuConnectTo.Enabled = true;
                     TsBtnConnectTo.Enabled = true;
                     TsBtnDisconnect.Enabled = false;
+                    MenuEdit.Enabled = false;
+                    MenuView.Enabled = false;
                 }
             }
             else
@@ -84,6 +90,8 @@ namespace Bandits
             MenuConnectTo.Enabled = true;
             TsBtnConnectTo.Enabled = true;
             TsBtnDisconnect.Enabled = false;
+            MenuEdit.Enabled = false;
+            MenuView.Enabled = false;
         }
 
         private void MenuExit_Click(object sender, EventArgs e)

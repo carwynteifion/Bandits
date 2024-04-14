@@ -292,6 +292,7 @@
             BtnModify.TabIndex = 9;
             BtnModify.Text = "Modify Record";
             BtnModify.UseVisualStyleBackColor = true;
+            BtnModify.Click += BtnModify_Click;
             // 
             // TxtModID
             // 
