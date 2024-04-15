@@ -37,6 +37,7 @@
             MenuExit = new ToolStripMenuItem();
             MenuEdit = new ToolStripMenuItem();
             MenuModifyDetails = new ToolStripMenuItem();
+            MenuModifyProduct = new ToolStripMenuItem();
             MenuView = new ToolStripMenuItem();
             MenuHelp = new ToolStripMenuItem();
             MenuAbout = new ToolStripMenuItem();
@@ -48,6 +49,7 @@
             ConnectionStatus = new ToolStripStatusLabel();
             pictureBox1 = new PictureBox();
             label1 = new Label();
+            toolStripSeparator2 = new ToolStripSeparator();
             menuStrip1.SuspendLayout();
             ToolStrip.SuspendLayout();
             StatusStrip.SuspendLayout();
@@ -100,7 +102,7 @@
             // 
             // MenuEdit
             // 
-            MenuEdit.DropDownItems.AddRange(new ToolStripItem[] { MenuModifyDetails });
+            MenuEdit.DropDownItems.AddRange(new ToolStripItem[] { MenuModifyDetails, MenuModifyProduct });
             MenuEdit.Name = "MenuEdit";
             MenuEdit.Size = new Size(58, 29);
             MenuEdit.Text = "Edit";
@@ -112,6 +114,13 @@
             MenuModifyDetails.Size = new Size(323, 34);
             MenuModifyDetails.Text = "Modify Customer Details...";
             MenuModifyDetails.Click += MenuModifyDetails_Click;
+            // 
+            // MenuModifyProduct
+            // 
+            MenuModifyProduct.Name = "MenuModifyProduct";
+            MenuModifyProduct.Size = new Size(323, 34);
+            MenuModifyProduct.Text = "Modify Product...";
+            MenuModifyProduct.Click += MenuModifyProduct_Click;
             // 
             // MenuView
             // 
@@ -140,7 +149,7 @@
             // ToolStrip
             // 
             ToolStrip.ImageScalingSize = new Size(24, 24);
-            ToolStrip.Items.AddRange(new ToolStripItem[] { TsBtnConnectTo, TsBtnDisconnect });
+            ToolStrip.Items.AddRange(new ToolStripItem[] { TsBtnConnectTo, toolStripSeparator2, TsBtnDisconnect });
             ToolStrip.Location = new Point(0, 33);
             ToolStrip.Name = "ToolStrip";
             ToolStrip.Size = new Size(800, 33);
@@ -205,6 +214,11 @@
             label1.Text = "Welcome to the\r\nBank of\r\nOutlaw Hess";
             label1.TextAlign = ContentAlignment.TopCenter;
             // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(6, 33);
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -215,9 +229,12 @@
             Controls.Add(StatusStrip);
             Controls.Add(ToolStrip);
             Controls.Add(menuStrip1);
+            FormBorderStyle = FormBorderStyle.Fixed3D;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menuStrip1;
+            MaximizeBox = false;
             Name = "Form1";
+            SizeGripStyle = SizeGripStyle.Hide;
             Text = "Bandits";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
@@ -251,5 +268,7 @@
         private ToolStripButton TsBtnDisconnect;
         private Label label1;
         private ToolStripMenuItem MenuModifyDetails;
+        private ToolStripMenuItem MenuModifyProduct;
+        private ToolStripSeparator toolStripSeparator2;
     }
 }

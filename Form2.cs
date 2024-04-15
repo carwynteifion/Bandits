@@ -13,22 +13,17 @@ namespace Bandits
 
         readonly string ConnectionString;
 
+        // Adds new customer record to database
         private void BtnAddRecord_Click(object sender, EventArgs e)
         {
             try
             {
-                //create a connection object to connect to the selected database
                 using SQLiteConnection Connection = new(ConnectionString);
-
-                //create a command object that uses this connection 
                 using SQLiteCommand Command = Connection.CreateCommand();
-
-                //set up the SQL instruction using placeholders
                 Command.CommandText = @"INSERT INTO customer(
                     title, firstname, lastname, dob, nicode, email, password, allowance
                 ) VALUES (
                     @title, @firstname, @lastname, @dob, @nicode, @email, @password, @allowance)";
-                //fill the placeholders with data from the UI
                 Command.Parameters.AddWithValue("title", TxtNewTitle.Text);
                 Command.Parameters.AddWithValue("firstname", TxtNewFirstName.Text);
                 Command.Parameters.AddWithValue("lastname", TxtNewLastName.Text);
@@ -37,12 +32,18 @@ namespace Bandits
                 Command.Parameters.AddWithValue("email", TxtNewEmail.Text);
                 Command.Parameters.AddWithValue("password", TxtNewPassword.Text);
                 Command.Parameters.AddWithValue("allowance", TxtNewAllowance.Text);
-
-                //execute the command against the database
                 Connection.Open();
-                Command.ExecuteNonQuery();
-                MessageBox.Show("Successfully added new customer record.");
+                int recordsChanged = Command.ExecuteNonQuery();
+                MessageBox.Show(recordsChanged + " record(s) added", "Modify Customer Details");
                 Connection.Close();
+                TxtNewTitle.Text = string.Empty;
+                TxtNewFirstName.Text = string.Empty;
+                TxtNewLastName.Text = string.Empty;
+                TxtNewDob.Text = string.Empty;
+                TxtNewNi.Text = string.Empty;
+                TxtNewEmail.Text = string.Empty;
+                TxtNewPassword.Text = string.Empty;
+                TxtNewAllowance.Text = string.Empty;
             }
             catch (Exception ex)
             {
@@ -50,12 +51,20 @@ namespace Bandits
             }
         }
 
+        /*
+         * Modifies an existing record's values if 
+         * corresponding values entered in the
+         * text boxes are not blank, otherwise leaves those
+         * values alone when command is executed.
+         */
         private void BtnModify_Click(object sender, EventArgs e)
         {
             try
             {
                 using SQLiteConnection Connection = new(ConnectionString);
                 using SQLiteCommand Command = Connection.CreateCommand();
+
+                // If there is text in the text box, update the value, else leave it alone
                 Command.CommandText = @"UPDATE customer " +
                                 " SET title = CASE WHEN COALESCE(@title, '') = '' THEN title ELSE @title END," +
                                 " firstname = CASE WHEN COALESCE(@firstname, '') = '' THEN firstname ELSE @firstname END," +
@@ -76,8 +85,8 @@ namespace Bandits
                 Command.Parameters.AddWithValue("password", TxtModPassword.Text);
                 Command.Parameters.AddWithValue("allowance", TxtModAllowance.Text);
                 Connection.Open();
-                Command.ExecuteNonQuery();
-                MessageBox.Show("Record modified successfully.");
+                int recordsChanged = Command.ExecuteNonQuery();
+                MessageBox.Show(recordsChanged + " record(s) modified", "Modify Customer Details");
                 Connection.Close();
             }
             catch (Exception ex)
@@ -86,6 +95,7 @@ namespace Bandits
             }
         }
 
+        // Deletes a customer record by ID
         private void BtnDelete_Click(object sender, EventArgs e)
         {
             try
@@ -96,12 +106,21 @@ namespace Bandits
                 Command.Parameters.AddWithValue("id", Convert.ToInt32(TxtDelCustId.Text));
                 Connection.Open();
                 Command.ExecuteNonQuery();
-                MessageBox.Show("Record deleted successfully.");
+                MessageBox.Show("Record deleted successfully.", "Modify Customer Details");
                 Connection.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        // Amends custom date format from blank to yyyy-MM-dd when date is changed
+        private void TxtModDob_ValueChanged(Object sender, EventArgs e)
+        {
+            if (TxtModDob.CustomFormat == " ")
+            {
+                TxtModDob.CustomFormat = "yyyy-MM-dd";
             }
         }
 

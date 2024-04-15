@@ -1,4 +1,3 @@
-using Microsoft.VisualBasic;
 using System.Data.SQLite;
 
 namespace Bandits
@@ -23,11 +22,13 @@ namespace Bandits
 
         private void MenuConnectTo_Click(object sender, EventArgs e)
         {
+            // Opens file selection dialog box to My Documents and filter to only show .db files
             openFileDialog1.Title = "Select database file";
             openFileDialog1.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             openFileDialog1.Filter = "Database files (*.db)|*.db";
             openFileDialog1.FilterIndex = 1;
             openFileDialog1.FileName = default;
+            // If database has been successfully selected, connect to it
             if (openFileDialog1.ShowDialog() != DialogResult.Cancel)
             {
                 ConnectionString = @"Data Source =" + openFileDialog1.FileName;
@@ -71,16 +72,7 @@ namespace Bandits
             MenuConnectTo_Click(sender, e);
         }
 
-        private void TsDisconnect_Click(object sender, EventArgs e)
-        {
-            MenuDisconnect_Click(sender, e);
-        }
-
-        private void MenuAbout_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("Developed by Carwyn Thomas", "About Bandits");
-        }
-
+        // Disconnect from the database
         private void MenuDisconnect_Click(object sender, EventArgs e)
         {
             connection.Close();
@@ -94,6 +86,16 @@ namespace Bandits
             MenuView.Enabled = false;
         }
 
+        private void TsDisconnect_Click(object sender, EventArgs e)
+        {
+            MenuDisconnect_Click(sender, e);
+        }
+
+        private void MenuAbout_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Developed by Carwyn Thomas", "About Bandits");
+        }
+
         private void MenuExit_Click(object sender, EventArgs e)
         {
             {
@@ -101,6 +103,7 @@ namespace Bandits
             }
         }
 
+        // When close button is clicked, show "are you sure" message box
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             if (MessageBox.Show("Are you sure you want to quit?", "Quit",
@@ -119,10 +122,18 @@ namespace Bandits
             }
         }
 
+        // Open Modify Customer Details
         private void MenuModifyDetails_Click(object sender, EventArgs e)
         {
             Form2 ModifyCustomer = new(ConnectionString);
             ModifyCustomer.ShowDialog();
+        }
+
+        // Open Modify Product
+        private void MenuModifyProduct_Click(object sender, EventArgs e)
+        {
+            Form3 ModifyProduct = new(ConnectionString);
+            ModifyProduct.ShowDialog();
         }
     }
 }
