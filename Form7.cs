@@ -62,7 +62,8 @@ namespace Bandits
                     amnt AS 'Amount' 
                     FROM tranx t JOIN account a ON t.accid = a.accid 
                     WHERE a.custid = 
-                    """ + DdCustId.Text + ";", Connection2);
+                    """ + DdCustId.Text +
+                    " ORDER BY event;", Connection2);
                 DataSet ds = new();
                 sda.Fill(ds);
 
