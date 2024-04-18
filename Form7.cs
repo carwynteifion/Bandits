@@ -28,7 +28,11 @@ namespace Bandits
                 using SQLiteConnection Connection = new(ConnectionString);
                 Connection.Open();
                 SQLiteCommand Command = Connection.CreateCommand();
-                Command.CommandText = @"SELECT DISTINCT c.custid FROM customer c JOIN account a ON c.custid = a.custid ORDER BY c.custid;";
+                Command.CommandText = """
+                    SELECT DISTINCT c.custid 
+                    FROM customer c JOIN account a ON c.custid = a.custid 
+                    ORDER BY c.custid;
+                    """;
                 using SQLiteDataReader Reader = Command.ExecuteReader();
                 while (Reader.Read())
                 {
@@ -50,7 +54,14 @@ namespace Bandits
             {
                 using SQLiteConnection Connection2 = new(ConnectionString);
                 Connection2.Open();
-                SQLiteDataAdapter sda = new(@"SELECT event AS 'Date', t.accid AS 'Account ID', action AS 'Transaction Type', amnt AS 'Amount' FROM tranx t JOIN account a ON t.accid = a.accid WHERE a.custid = " + DdCustId.Text + ";", Connection2);
+                SQLiteDataAdapter sda = new("""
+                    SELECT event AS 'Date', 
+                    t.accid AS 'Account ID', 
+                    action AS 'Transaction Type', 
+                    amnt AS 'Amount' 
+                    FROM tranx t JOIN account a ON t.accid = a.accid 
+                    WHERE a.custid = 
+                    """ + DdCustId.Text + ";", Connection2);
                 DataSet ds = new();
                 sda.Fill(ds);
                 ListCustTranx.Items.Clear();

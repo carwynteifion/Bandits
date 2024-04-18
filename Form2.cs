@@ -20,10 +20,12 @@ namespace Bandits
             {
                 using SQLiteConnection Connection = new(ConnectionString);
                 using SQLiteCommand Command = Connection.CreateCommand();
-                Command.CommandText = @"INSERT INTO customer(
+                Command.CommandText = """
+                    INSERT INTO customer(
                     title, firstname, lastname, dob, nicode, email, password, allowance
-                ) VALUES (
-                    @title, @firstname, @lastname, @dob, @nicode, @email, @password, @allowance);";
+                    ) VALUES (
+                    @title, @firstname, @lastname, @dob, @nicode, @email, @password, @allowance);
+                    """;
                 Command.Parameters.AddWithValue("title", TxtNewTitle.Text);
                 Command.Parameters.AddWithValue("firstname", TxtNewFirstName.Text);
                 Command.Parameters.AddWithValue("lastname", TxtNewLastName.Text);

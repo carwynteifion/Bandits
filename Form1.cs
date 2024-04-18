@@ -98,16 +98,16 @@ namespace Bandits
                 using SQLiteConnection Connection = new(ConnectionString);
                 using SQLiteCommand Command = Connection.CreateCommand();
                 Command.CommandText = """
-                    UPDATE account AS a
+                    UPDATE account AS a 
                     SET accrued = 
                     ROUND(accrued + (
-                        SELECT (a.balance * product.intrate / 365.0)
-                        FROM product
-                        WHERE a.prodid = product.prodid), 2),
-                    balance =
+                        SELECT (a.balance * product.intrate / 365.0) 
+                        FROM product 
+                        WHERE a.prodid = product.prodid), 2), 
+                    balance = 
                     ROUND(balance + (
-                        SELECT (a.balance * product.intrate / 365.0)
-                        FROM product
+                        SELECT (a.balance * product.intrate / 365.0) 
+                        FROM product 
                         WHERE a.prodid = product.prodid), 2);
                     """;
                 Connection.Open();

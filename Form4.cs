@@ -43,7 +43,10 @@ namespace Bandits
             {
                 using SQLiteConnection Connection = new(ConnectionString);
                 using SQLiteCommand Command = Connection.CreateCommand();
-                Command.CommandText = @"INSERT INTO tranx (accid, action, amnt, event) VALUES (@accid, @action, @amnt, @event);";
+                Command.CommandText = """
+                    INSERT INTO tranx (accid, action, amnt, event) 
+                    VALUES (@accid, @action, @amnt, @event);
+                    """;
                 Command.Parameters.AddWithValue("accid", DdAccId.Text);
                 Command.Parameters.AddWithValue("action", DdTranxType.Text);
                 Command.Parameters.AddWithValue("amnt", TxtTranxAmt.Text);

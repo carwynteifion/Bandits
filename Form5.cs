@@ -21,7 +21,11 @@ namespace Bandits
                 using SQLiteConnection Connection = new(ConnectionString);
                 Connection.Open();
                 SQLiteCommand Command = Connection.CreateCommand();
-                Command.CommandText = @"SELECT SUM(amnt) FROM tranx WHERE action = 'deposit' AND event >= '" + TranxDateTime.Text + "';";
+                Command.CommandText = """
+                    SELECT SUM(amnt) 
+                    FROM tranx 
+                    WHERE action = 'deposit' AND event >= '
+                    """ + TranxDateTime.Text + "';";
                 using SQLiteDataReader Reader = Command.ExecuteReader();
                 while (Reader.Read())
                 { 
@@ -44,7 +48,11 @@ namespace Bandits
                 using SQLiteConnection Connection = new(ConnectionString);
                 Connection.Open();
                 SQLiteCommand Command = Connection.CreateCommand();
-                Command.CommandText = @"SELECT SUM(amnt) FROM tranx WHERE action = 'withdrw' AND event >= '" + TranxDateTime.Text + "';";
+                Command.CommandText = """
+                    SELECT SUM(amnt) 
+                    FROM tranx 
+                    WHERE action = 'withdrw' AND event >= '
+                    """ + TranxDateTime.Text + "';";
                 using SQLiteDataReader Reader = Command.ExecuteReader();
                 while (Reader.Read())
                 {
