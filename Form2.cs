@@ -23,7 +23,7 @@ namespace Bandits
                 Command.CommandText = @"INSERT INTO customer(
                     title, firstname, lastname, dob, nicode, email, password, allowance
                 ) VALUES (
-                    @title, @firstname, @lastname, @dob, @nicode, @email, @password, @allowance)";
+                    @title, @firstname, @lastname, @dob, @nicode, @email, @password, @allowance);";
                 Command.Parameters.AddWithValue("title", TxtNewTitle.Text);
                 Command.Parameters.AddWithValue("firstname", TxtNewFirstName.Text);
                 Command.Parameters.AddWithValue("lastname", TxtNewLastName.Text);
@@ -74,8 +74,8 @@ namespace Bandits
                                 " email = CASE WHEN COALESCE(@email, '') = '' THEN email ELSE @email END," +
                                 " password = CASE WHEN COALESCE(@password, '') = '' THEN password ELSE @password END," +
                                 " allowance = CASE WHEN COALESCE(@allowance, '') = '' THEN allowance ELSE @allowance END" +
-                                " where custid = @id";
-                Command.Parameters.AddWithValue("id", Convert.ToInt32(TxtModID.Text));
+                                " where custid = @id;";
+                Command.Parameters.AddWithValue("id", Convert.ToInt32(DdModId.Text));
                 Command.Parameters.AddWithValue("title", TxtModTitle.Text);
                 Command.Parameters.AddWithValue("firstname", TxtModFirstName.Text);
                 Command.Parameters.AddWithValue("lastname", TxtModLastName.Text);
@@ -102,7 +102,7 @@ namespace Bandits
             {
                 using SQLiteConnection Connection = new(ConnectionString);
                 using SQLiteCommand Command = Connection.CreateCommand();
-                Command.CommandText = @"DELETE FROM customer WHERE custid = @id";
+                Command.CommandText = @"DELETE FROM customer WHERE custid = @id;";
                 Command.Parameters.AddWithValue("id", Convert.ToInt32(TxtDelCustId.Text));
                 Connection.Open();
                 Command.ExecuteNonQuery();
@@ -115,18 +115,68 @@ namespace Bandits
             }
         }
 
-        // Amends custom date format from blank to yyyy-MM-dd when date is changed
-        private void TxtModDob_ValueChanged(Object sender, EventArgs e)
-        {
-            if (TxtModDob.CustomFormat == " ")
-            {
-                TxtModDob.CustomFormat = "yyyy-MM-dd";
-            }
-        }
-
         private void BtnCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void TxtNewAllowance_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+        (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && (((TextBox)sender).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void Form2_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                using SQLiteConnection Connection = new(ConnectionString);
+                Connection.Open();
+                SQLiteCommand Command = Connection.CreateCommand();
+                Command.CommandText = @"SELECT DISTINCT custid FROM customer ORDER BY custid;";
+                using SQLiteDataReader Reader = Command.ExecuteReader();
+                while (Reader.Read())
+                {
+                    DdModId.Items.Add(Reader.GetInt16(0).ToString());
+                }
+                Reader.Close();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error");
+            }
+        }
+
+        private void DdModId_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                using SQLiteConnection Connection = new(ConnectionString);
+                Connection.Open();
+                SQLiteCommand Command = Connection.CreateCommand();
+                Command.CommandText = @"SELECT dob FROM customer WHERE custid = " + DdModId.Text + ";";
+                using SQLiteDataReader Reader = Command.ExecuteReader();
+                while (Reader.Read())
+                {
+                    TxtModDob.Text = Reader.GetString(0);
+                }
+                Reader.Close();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error");
+            }
         }
     }
 }

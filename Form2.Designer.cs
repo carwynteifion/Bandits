@@ -49,9 +49,9 @@
             LblFirstName = new Label();
             LblNewTitle = new Label();
             TabModifyCustomer = new TabPage();
+            DdModId = new ComboBox();
             TxtModDob = new DateTimePicker();
             BtnModify = new Button();
-            TxtModID = new TextBox();
             LblModId = new Label();
             TxtModFirstName = new TextBox();
             TxtModLastName = new TextBox();
@@ -179,6 +179,7 @@
             TxtNewAllowance.Name = "TxtNewAllowance";
             TxtNewAllowance.Size = new Size(150, 31);
             TxtNewAllowance.TabIndex = 7;
+            TxtNewAllowance.KeyPress += TxtNewAllowance_KeyPress;
             // 
             // TxtNewTitle
             // 
@@ -261,9 +262,9 @@
             // 
             // TabModifyCustomer
             // 
+            TabModifyCustomer.Controls.Add(DdModId);
             TabModifyCustomer.Controls.Add(TxtModDob);
             TabModifyCustomer.Controls.Add(BtnModify);
-            TabModifyCustomer.Controls.Add(TxtModID);
             TabModifyCustomer.Controls.Add(LblModId);
             TabModifyCustomer.Controls.Add(TxtModFirstName);
             TabModifyCustomer.Controls.Add(TxtModLastName);
@@ -288,15 +289,25 @@
             TabModifyCustomer.Text = "Modify Customer";
             TabModifyCustomer.UseVisualStyleBackColor = true;
             // 
+            // DdModId
+            // 
+            DdModId.DropDownStyle = ComboBoxStyle.DropDownList;
+            DdModId.FormattingEnabled = true;
+            DdModId.Location = new Point(203, 23);
+            DdModId.Name = "DdModId";
+            DdModId.Size = new Size(150, 33);
+            DdModId.TabIndex = 0;
+            DdModId.SelectedIndexChanged += DdModId_SelectedIndexChanged;
+            // 
             // TxtModDob
             // 
-            TxtModDob.CustomFormat = " ";
+            TxtModDob.CustomFormat = "yyyy-MM-dd";
             TxtModDob.Format = DateTimePickerFormat.Custom;
             TxtModDob.Location = new Point(203, 196);
             TxtModDob.Name = "TxtModDob";
             TxtModDob.Size = new Size(150, 31);
-            TxtModDob.TabIndex = 33;
-            TxtModDob.Value = new DateTime(2024, 4, 14, 2, 3, 49, 0);
+            TxtModDob.TabIndex = 4;
+            TxtModDob.Value = new DateTime(2024, 4, 15, 0, 0, 0, 0);
             // 
             // BtnModify
             // 
@@ -307,13 +318,6 @@
             BtnModify.Text = "Modify Record";
             BtnModify.UseVisualStyleBackColor = true;
             BtnModify.Click += BtnModify_Click;
-            // 
-            // TxtModID
-            // 
-            TxtModID.Location = new Point(203, 23);
-            TxtModID.Name = "TxtModID";
-            TxtModID.Size = new Size(150, 31);
-            TxtModID.TabIndex = 0;
             // 
             // LblModId
             // 
@@ -507,6 +511,7 @@
             Name = "Form2";
             SizeGripStyle = SizeGripStyle.Hide;
             Text = "Modify Customer Details";
+            Load += Form2_Load;
             TabControl.ResumeLayout(false);
             TabNewCustomer.ResumeLayout(false);
             TabNewCustomer.PerformLayout();
@@ -544,7 +549,6 @@
         private Button BtnDelete;
         private TextBox TxtDelCustId;
         private Label LblDelCustId;
-        private TextBox TxtModID;
         private Label LblModId;
         private TextBox TxtModFirstName;
         private TextBox TxtModLastName;
@@ -563,5 +567,6 @@
         private Label LblModTitle;
         private Button BtnModify;
         private DateTimePicker TxtModDob;
+        private ComboBox DdModId;
     }
 }

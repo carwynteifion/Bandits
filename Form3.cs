@@ -20,7 +20,7 @@ namespace Bandits
             {
                 using SQLiteConnection Connection = new(ConnectionString);
                 using SQLiteCommand Command = Connection.CreateCommand();
-                Command.CommandText = @"INSERT INTO product (isaname, status, intrate) VALUES (@isaname, @status, @intrate)";
+                Command.CommandText = @"INSERT INTO product (isaname, status, intrate) VALUES (@isaname, @status, @intrate);";
                 Command.Parameters.AddWithValue("isaname", TxtNewProdName.Text);
                 Command.Parameters.AddWithValue("status", DdStatus.Text);
                 Command.Parameters.AddWithValue("intrate", TxtNewIntRate.Text);
@@ -53,8 +53,8 @@ namespace Bandits
                                 " SET isaname = CASE WHEN COALESCE(@isaname, '') = '' THEN isaname ELSE @isaname END," +
                                 " status = CASE WHEN COALESCE(@status, '') = '' THEN status ELSE @status END," +
                                 " intrate = CASE WHEN COALESCE(@intrate, '') = '' THEN intrate ELSE @intrate END" +
-                                " where prodid = @id";
-                Command.Parameters.AddWithValue("id", Convert.ToInt32(TxtModId.Text));
+                                " where prodid = @id;";
+                Command.Parameters.AddWithValue("id", Convert.ToInt32(DdModId.Text));
                 Command.Parameters.AddWithValue("isaname", TxtModProdName.Text);
                 Command.Parameters.AddWithValue("status", DdModStatus.Text);
                 Command.Parameters.AddWithValue("intrate", TxtModIntRate.Text);
@@ -76,7 +76,7 @@ namespace Bandits
             {
                 using SQLiteConnection Connection = new(ConnectionString);
                 using SQLiteCommand Command = Connection.CreateCommand();
-                Command.CommandText = @"DELETE FROM product WHERE prodid = @id";
+                Command.CommandText = @"DELETE FROM product WHERE prodid = @id;";
                 Command.Parameters.AddWithValue("id", Convert.ToInt32(TxtDelProdId.Text));
                 Connection.Open();
                 Command.ExecuteNonQuery();
@@ -92,6 +92,43 @@ namespace Bandits
         private void BtnCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void Form3_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                using SQLiteConnection Connection = new(ConnectionString);
+                Connection.Open();
+                SQLiteCommand Command = Connection.CreateCommand();
+                Command.CommandText = @"SELECT DISTINCT prodid FROM product ORDER BY prodid;";
+                using SQLiteDataReader Reader = Command.ExecuteReader();
+                while (Reader.Read())
+                {
+                    DdModId.Items.Add(Reader.GetInt16(0).ToString());
+                }
+                Reader.Close();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
+
+        private void TxtNewIntRate_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+        (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && (((TextBox)sender).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

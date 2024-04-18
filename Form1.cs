@@ -8,10 +8,6 @@ namespace Bandits
         {
             InitializeComponent();
             StartPosition = FormStartPosition.CenterScreen;
-            MenuDisconnect.Enabled = false;
-            TsBtnDisconnect.Enabled = false;
-            MenuEdit.Enabled = false;
-            MenuView.Enabled = false;
         }
 
         // Create connection object
@@ -134,6 +130,24 @@ namespace Bandits
         {
             Form3 ModifyProduct = new(ConnectionString);
             ModifyProduct.ShowDialog();
+        }
+
+        private void MenuNewTranx_Click(object sender, EventArgs e)
+        {
+            Form4 NewTranx = new(ConnectionString);
+            NewTranx.ShowDialog();
+        }
+
+        private void MenuTotalTranx_Click(object sender, EventArgs e)
+        {
+            Form5 ViewTranx = new(ConnectionString);
+            ViewTranx.ShowDialog();
+        }
+
+        private void MenuMVC_Click(object sender, EventArgs e)
+        {
+            Form6 MostValuableCustomer = new(ConnectionString);
+            MostValuableCustomer.ShowDialog();
         }
     }
 }

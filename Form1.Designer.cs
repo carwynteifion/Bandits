@@ -38,18 +38,21 @@
             MenuEdit = new ToolStripMenuItem();
             MenuModifyDetails = new ToolStripMenuItem();
             MenuModifyProduct = new ToolStripMenuItem();
+            MenuNewTranx = new ToolStripMenuItem();
             MenuView = new ToolStripMenuItem();
+            MenuTotalTranx = new ToolStripMenuItem();
+            MenuMVC = new ToolStripMenuItem();
             MenuHelp = new ToolStripMenuItem();
             MenuAbout = new ToolStripMenuItem();
             openFileDialog1 = new OpenFileDialog();
             ToolStrip = new ToolStrip();
             TsBtnConnectTo = new ToolStripButton();
+            toolStripSeparator2 = new ToolStripSeparator();
             TsBtnDisconnect = new ToolStripButton();
             StatusStrip = new StatusStrip();
             ConnectionStatus = new ToolStripStatusLabel();
             pictureBox1 = new PictureBox();
             label1 = new Label();
-            toolStripSeparator2 = new ToolStripSeparator();
             menuStrip1.SuspendLayout();
             ToolStrip.SuspendLayout();
             StatusStrip.SuspendLayout();
@@ -82,6 +85,7 @@
             // 
             // MenuDisconnect
             // 
+            MenuDisconnect.Enabled = false;
             MenuDisconnect.Name = "MenuDisconnect";
             MenuDisconnect.Overflow = ToolStripItemOverflow.Always;
             MenuDisconnect.Size = new Size(213, 34);
@@ -102,7 +106,8 @@
             // 
             // MenuEdit
             // 
-            MenuEdit.DropDownItems.AddRange(new ToolStripItem[] { MenuModifyDetails, MenuModifyProduct });
+            MenuEdit.DropDownItems.AddRange(new ToolStripItem[] { MenuModifyDetails, MenuModifyProduct, MenuNewTranx });
+            MenuEdit.Enabled = false;
             MenuEdit.Name = "MenuEdit";
             MenuEdit.Size = new Size(58, 29);
             MenuEdit.Text = "Edit";
@@ -122,11 +127,34 @@
             MenuModifyProduct.Text = "Modify Product...";
             MenuModifyProduct.Click += MenuModifyProduct_Click;
             // 
+            // MenuNewTranx
+            // 
+            MenuNewTranx.Name = "MenuNewTranx";
+            MenuNewTranx.Size = new Size(323, 34);
+            MenuNewTranx.Text = "New Transaction...";
+            MenuNewTranx.Click += MenuNewTranx_Click;
+            // 
             // MenuView
             // 
+            MenuView.DropDownItems.AddRange(new ToolStripItem[] { MenuTotalTranx, MenuMVC });
+            MenuView.Enabled = false;
             MenuView.Name = "MenuView";
             MenuView.Size = new Size(65, 29);
             MenuView.Text = "View";
+            // 
+            // MenuTotalTranx
+            // 
+            MenuTotalTranx.Name = "MenuTotalTranx";
+            MenuTotalTranx.Size = new Size(342, 34);
+            MenuTotalTranx.Text = "Total Deposits/Withdrawals...";
+            MenuTotalTranx.Click += MenuTotalTranx_Click;
+            // 
+            // MenuMVC
+            // 
+            MenuMVC.Name = "MenuMVC";
+            MenuMVC.Size = new Size(342, 34);
+            MenuMVC.Text = "Most Valuable Customer...";
+            MenuMVC.Click += MenuMVC_Click;
             // 
             // MenuHelp
             // 
@@ -166,9 +194,15 @@
             TsBtnConnectTo.Text = "Connect To...";
             TsBtnConnectTo.Click += TsBtnConnectTo_Click;
             // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(6, 33);
+            // 
             // TsBtnDisconnect
             // 
             TsBtnDisconnect.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            TsBtnDisconnect.Enabled = false;
             TsBtnDisconnect.Image = Properties.Resources.unlink;
             TsBtnDisconnect.ImageTransparentColor = Color.Magenta;
             TsBtnDisconnect.Name = "TsBtnDisconnect";
@@ -214,11 +248,6 @@
             label1.Text = "Welcome to the\r\nBank of\r\nOutlaw Hess";
             label1.TextAlign = ContentAlignment.TopCenter;
             // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(6, 33);
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -235,7 +264,7 @@
             MaximizeBox = false;
             Name = "Form1";
             SizeGripStyle = SizeGripStyle.Hide;
-            Text = "Bandits";
+            Text = "Bank of Outlaw Hess";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ToolStrip.ResumeLayout(false);
@@ -270,5 +299,8 @@
         private ToolStripMenuItem MenuModifyDetails;
         private ToolStripMenuItem MenuModifyProduct;
         private ToolStripSeparator toolStripSeparator2;
+        private ToolStripMenuItem MenuNewTranx;
+        private ToolStripMenuItem MenuTotalTranx;
+        private ToolStripMenuItem MenuMVC;
     }
 }

@@ -35,9 +35,9 @@
             TabDeleteProduct = new TabPage();
             LblDelProdId = new Label();
             TabModifyProduct = new TabPage();
+            DdModId = new ComboBox();
             DdModStatus = new ComboBox();
             BtnModify = new Button();
-            TxtModId = new TextBox();
             LblModId = new Label();
             TxtModIntRate = new TextBox();
             TxtModProdName = new TextBox();
@@ -110,9 +110,9 @@
             // 
             // TabModifyProduct
             // 
+            TabModifyProduct.Controls.Add(DdModId);
             TabModifyProduct.Controls.Add(DdModStatus);
             TabModifyProduct.Controls.Add(BtnModify);
-            TabModifyProduct.Controls.Add(TxtModId);
             TabModifyProduct.Controls.Add(LblModId);
             TabModifyProduct.Controls.Add(TxtModIntRate);
             TabModifyProduct.Controls.Add(TxtModProdName);
@@ -127,13 +127,22 @@
             TabModifyProduct.Text = "Modify Product";
             TabModifyProduct.UseVisualStyleBackColor = true;
             // 
+            // DdModId
+            // 
+            DdModId.DropDownStyle = ComboBoxStyle.DropDownList;
+            DdModId.FormattingEnabled = true;
+            DdModId.Location = new Point(203, 26);
+            DdModId.Name = "DdModId";
+            DdModId.Size = new Size(146, 33);
+            DdModId.TabIndex = 34;
+            // 
             // DdModStatus
             // 
             DdModStatus.FormattingEnabled = true;
             DdModStatus.Items.AddRange(new object[] { "open", "closed" });
             DdModStatus.Location = new Point(203, 117);
             DdModStatus.Name = "DdModStatus";
-            DdModStatus.Size = new Size(113, 33);
+            DdModStatus.Size = new Size(150, 33);
             DdModStatus.TabIndex = 33;
             // 
             // BtnModify
@@ -145,13 +154,6 @@
             BtnModify.Text = "Modify Product";
             BtnModify.UseVisualStyleBackColor = true;
             BtnModify.Click += BtnModify_Click;
-            // 
-            // TxtModId
-            // 
-            TxtModId.Location = new Point(203, 23);
-            TxtModId.Name = "TxtModId";
-            TxtModId.Size = new Size(150, 31);
-            TxtModId.TabIndex = 0;
             // 
             // LblModId
             // 
@@ -168,6 +170,7 @@
             TxtModIntRate.Name = "TxtModIntRate";
             TxtModIntRate.Size = new Size(150, 31);
             TxtModIntRate.TabIndex = 3;
+            TxtModIntRate.Text = "0.0";
             // 
             // TxtModProdName
             // 
@@ -260,14 +263,14 @@
             // 
             // DdStatus
             // 
+            DdStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             DdStatus.Enabled = false;
             DdStatus.FormattingEnabled = true;
             DdStatus.Items.AddRange(new object[] { "open", "closed" });
             DdStatus.Location = new Point(196, 56);
             DdStatus.Name = "DdStatus";
-            DdStatus.Size = new Size(113, 33);
+            DdStatus.Size = new Size(150, 33);
             DdStatus.TabIndex = 9;
-            DdStatus.Text = "open";
             // 
             // BtnAddProduct
             // 
@@ -286,6 +289,8 @@
             TxtNewIntRate.Name = "TxtNewIntRate";
             TxtNewIntRate.Size = new Size(150, 31);
             TxtNewIntRate.TabIndex = 2;
+            TxtNewIntRate.Text = "0.0";
+            TxtNewIntRate.KeyPress += TxtNewIntRate_KeyPress;
             // 
             // TxtNewProdName
             // 
@@ -307,6 +312,7 @@
             Name = "Form3";
             SizeGripStyle = SizeGripStyle.Hide;
             Text = "Modify Product Details";
+            Load += Form3_Load;
             TabDeleteProduct.ResumeLayout(false);
             TabDeleteProduct.PerformLayout();
             TabModifyProduct.ResumeLayout(false);
@@ -326,7 +332,6 @@
         private Label LblDelProdId;
         private TabPage TabModifyProduct;
         private Button BtnModify;
-        private TextBox TxtModId;
         private Label LblModId;
         private TextBox TxtModIntRate;
         private TextBox TxtModProdName;
@@ -343,5 +348,6 @@
         private TextBox TxtNewProdName;
         private ComboBox DdStatus;
         private ComboBox DdModStatus;
+        private ComboBox DdModId;
     }
 }
