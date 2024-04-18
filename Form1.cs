@@ -2,6 +2,7 @@ using System.Data.SQLite;
 
 namespace Bandits
 {
+    // Main Form
     public partial class Form1 : Form
     {
         public Form1()
@@ -10,7 +11,7 @@ namespace Bandits
             StartPosition = FormStartPosition.CenterScreen;
         }
 
-        // Create connection object
+        // Create connection object to connect to SQLite database
         readonly SQLiteConnection connection = new();
 
         // Set up string variable for connection details
@@ -24,6 +25,7 @@ namespace Bandits
             openFileDialog1.Filter = "Database files (*.db)|*.db";
             openFileDialog1.FilterIndex = 1;
             openFileDialog1.FileName = default;
+           
             // If database has been successfully selected, connect to it
             if (openFileDialog1.ShowDialog() != DialogResult.Cancel)
             {

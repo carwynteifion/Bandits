@@ -2,6 +2,7 @@
 
 namespace Bandits
 {
+    // New Transaction
     public partial class Form4 : Form
     {
         public Form4(string InString)

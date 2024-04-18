@@ -126,9 +126,11 @@
             TxtNewDob.Size = new Size(150, 31);
             TxtNewDob.TabIndex = 3;
             TxtNewDob.Value = new DateTime(2024, 4, 14, 0, 0, 0, 0);
+            TxtNewDob.ValueChanged += EnableAdd;
             // 
             // BtnAddRecord
             // 
+            BtnAddRecord.Enabled = false;
             BtnAddRecord.Location = new Point(8, 417);
             BtnAddRecord.Name = "BtnAddRecord";
             BtnAddRecord.Size = new Size(128, 34);
@@ -143,6 +145,7 @@
             TxtNewFirstName.Name = "TxtNewFirstName";
             TxtNewFirstName.Size = new Size(150, 31);
             TxtNewFirstName.TabIndex = 1;
+            TxtNewFirstName.TextChanged += EnableAdd;
             // 
             // TxtNewLastName
             // 
@@ -150,6 +153,7 @@
             TxtNewLastName.Name = "TxtNewLastName";
             TxtNewLastName.Size = new Size(150, 31);
             TxtNewLastName.TabIndex = 2;
+            TxtNewLastName.TextChanged += EnableAdd;
             // 
             // TxtNewNi
             // 
@@ -158,6 +162,7 @@
             TxtNewNi.Name = "TxtNewNi";
             TxtNewNi.Size = new Size(150, 31);
             TxtNewNi.TabIndex = 4;
+            TxtNewNi.TextChanged += EnableAdd;
             // 
             // TxtNewEmail
             // 
@@ -165,6 +170,7 @@
             TxtNewEmail.Name = "TxtNewEmail";
             TxtNewEmail.Size = new Size(150, 31);
             TxtNewEmail.TabIndex = 5;
+            TxtNewEmail.TextChanged += EnableAdd;
             // 
             // TxtNewPassword
             // 
@@ -172,6 +178,7 @@
             TxtNewPassword.Name = "TxtNewPassword";
             TxtNewPassword.Size = new Size(150, 31);
             TxtNewPassword.TabIndex = 6;
+            TxtNewPassword.TextChanged += EnableAdd;
             // 
             // TxtNewAllowance
             // 
@@ -179,6 +186,7 @@
             TxtNewAllowance.Name = "TxtNewAllowance";
             TxtNewAllowance.Size = new Size(150, 31);
             TxtNewAllowance.TabIndex = 7;
+            TxtNewAllowance.TextChanged += EnableAdd;
             TxtNewAllowance.KeyPress += TxtNewAllowance_KeyPress;
             // 
             // TxtNewTitle
@@ -187,6 +195,7 @@
             TxtNewTitle.Name = "TxtNewTitle";
             TxtNewTitle.Size = new Size(150, 31);
             TxtNewTitle.TabIndex = 0;
+            TxtNewTitle.TextChanged += EnableAdd;
             // 
             // LblNewAllowance
             // 
@@ -298,6 +307,7 @@
             DdModId.Size = new Size(150, 33);
             DdModId.TabIndex = 0;
             DdModId.SelectedIndexChanged += DdModId_SelectedIndexChanged;
+            DdModId.SelectedValueChanged += EnableMod;
             // 
             // TxtModDob
             // 
@@ -308,9 +318,11 @@
             TxtModDob.Size = new Size(150, 31);
             TxtModDob.TabIndex = 4;
             TxtModDob.Value = new DateTime(2024, 4, 15, 0, 0, 0, 0);
+            TxtModDob.ValueChanged += EnableMod;
             // 
             // BtnModify
             // 
+            BtnModify.Enabled = false;
             BtnModify.Location = new Point(15, 417);
             BtnModify.Name = "BtnModify";
             BtnModify.Size = new Size(142, 34);
@@ -334,6 +346,7 @@
             TxtModFirstName.Name = "TxtModFirstName";
             TxtModFirstName.Size = new Size(150, 31);
             TxtModFirstName.TabIndex = 2;
+            TxtModFirstName.TextChanged += EnableMod;
             // 
             // TxtModLastName
             // 
@@ -341,6 +354,7 @@
             TxtModLastName.Name = "TxtModLastName";
             TxtModLastName.Size = new Size(150, 31);
             TxtModLastName.TabIndex = 3;
+            TxtModLastName.TextChanged += EnableMod;
             // 
             // TxtModNi
             // 
@@ -348,6 +362,7 @@
             TxtModNi.Name = "TxtModNi";
             TxtModNi.Size = new Size(150, 31);
             TxtModNi.TabIndex = 5;
+            TxtModNi.TextChanged += EnableMod;
             // 
             // TxtModEmail
             // 
@@ -355,6 +370,7 @@
             TxtModEmail.Name = "TxtModEmail";
             TxtModEmail.Size = new Size(150, 31);
             TxtModEmail.TabIndex = 6;
+            TxtModEmail.TextChanged += EnableMod;
             // 
             // TxtModPassword
             // 
@@ -362,6 +378,7 @@
             TxtModPassword.Name = "TxtModPassword";
             TxtModPassword.Size = new Size(150, 31);
             TxtModPassword.TabIndex = 7;
+            TxtModPassword.TextChanged += EnableMod;
             // 
             // TxtModAllowance
             // 
@@ -369,6 +386,7 @@
             TxtModAllowance.Name = "TxtModAllowance";
             TxtModAllowance.Size = new Size(150, 31);
             TxtModAllowance.TabIndex = 8;
+            TxtModAllowance.TextChanged += EnableMod;
             // 
             // TxtModTitle
             // 
@@ -376,6 +394,7 @@
             TxtModTitle.Name = "TxtModTitle";
             TxtModTitle.Size = new Size(150, 31);
             TxtModTitle.TabIndex = 1;
+            TxtModTitle.TextChanged += EnableMod;
             // 
             // LblModAllowance
             // 
@@ -470,9 +489,11 @@
             DdDelId.Name = "DdDelId";
             DdDelId.Size = new Size(125, 33);
             DdDelId.TabIndex = 0;
+            DdDelId.SelectedValueChanged += EnableDel;
             // 
             // BtnDelete
             // 
+            BtnDelete.Enabled = false;
             BtnDelete.Location = new Point(12, 87);
             BtnDelete.Name = "BtnDelete";
             BtnDelete.Size = new Size(154, 34);

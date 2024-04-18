@@ -2,6 +2,7 @@
 
 namespace Bandits
 {
+    // Manage Customer Details
     public partial class Form2 : Form
     {
         public Form2(string InString)
@@ -185,6 +186,58 @@ namespace Bandits
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message, "Error");
+            }
+        }
+
+        // Enable buttons when all required fields are filled
+        private void EnableAdd(object sender, EventArgs e)
+        {
+            if (TxtNewTitle.Text != "" &&
+                TxtNewFirstName.Text != "" &&
+                TxtNewLastName.Text != "" &&
+                TxtNewDob.Text != "" &&
+                TxtNewNi.Text != "" &&
+                TxtNewEmail.Text != "" &&
+                TxtNewPassword.Text != "" &&
+                TxtNewAllowance.Text != "")
+            {
+                BtnAddRecord.Enabled = true;
+            }
+            else
+            {
+                BtnAddRecord.Enabled = false;
+            }
+        }
+
+        private void EnableMod(object sender, EventArgs e)
+        {
+            if (DdModId.Text != "" &&
+                TxtModTitle.Text != "" && 
+                TxtModFirstName.Text != "" &&
+                TxtModLastName.Text != "" &&
+                TxtModDob.Text != "" &&
+                TxtModNi.Text != "" &&
+                TxtModEmail.Text != "" &&
+                TxtModPassword.Text != "" &&
+                TxtModAllowance.Text != "")
+            {
+                BtnModify.Enabled = true;
+            }
+            else
+            {
+                BtnModify.Enabled = false;
+            }
+        }
+
+        private void EnableDel(object sender, EventArgs e)
+        {
+            if (DdDelId.Text != "")
+            {
+                BtnDelete.Enabled = true;
+            }
+            else
+            {
+                BtnDelete.Enabled = false;
             }
         }
     }

@@ -2,6 +2,7 @@
 
 namespace Bandits
 {
+    // Manage Products
     public partial class Form3 : Form
     {
         public Form3(string InString)
@@ -162,6 +163,48 @@ namespace Bandits
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message, "Error");
+            }
+        }
+
+        // Enable buttons when all required fields are filled
+        private void EnableAdd(object sender, EventArgs e)
+        {
+            if (TxtNewProdName.Text != "" &&
+                DdStatus.Text != "" &&
+                TxtNewIntRate.Text != "")
+            {
+                BtnAddProduct.Enabled = true;
+            }
+            else
+            {
+                BtnAddProduct.Enabled = false;
+            }
+        }
+
+        private void EnableMod(object sender, EventArgs e)
+        {
+            if (DdModId.Text != "" &&
+                TxtModProdName.Text != "" &&
+                DdModStatus.Text != "" &&
+                TxtModIntRate.Text != "")
+            {
+                BtnModify.Enabled = true;
+            }
+            else
+            {
+                BtnModify.Enabled = false;
+            }
+        }
+
+        private void EnableDel(object sender, EventArgs e)
+        {
+            if (DdDelProdId.Text != "")
+            {
+                BtnDelete.Enabled = true;
+            }
+            else
+            {
+                BtnDelete.Enabled = false;
             }
         }
     }

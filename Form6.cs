@@ -3,6 +3,7 @@ using System.Data.SQLite;
 
 namespace Bandits
 {
+    // View Most Valuable Customer
     public partial class Form6 : Form
     {
         public Form6(string InString)
@@ -19,7 +20,7 @@ namespace Bandits
 
         readonly string ConnectionString;
 
-        // Add all account balance totals per customer, display by customer and sort descending
+        // Add all account balance totals per customer, display by customer and sort by balance descending
         private void Form6_Load(object sender, EventArgs e)
         {
             try
@@ -37,7 +38,7 @@ namespace Bandits
                     """, Connection);
                 DataSet ds = new();
                 sda.Fill(ds);
-
+                // Generate each row entry in the ListView
                 ListMVC.BeginUpdate();
                 foreach (DataRow row in ds.Tables[0].Rows)
                 {
@@ -58,6 +59,7 @@ namespace Bandits
             }
         }
 
+        // Close the form
         private void BtnOK_Click(object sender, EventArgs e)
         {
             Close();

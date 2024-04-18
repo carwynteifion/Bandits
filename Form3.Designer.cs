@@ -71,6 +71,7 @@
             // 
             // BtnDelete
             // 
+            BtnDelete.Enabled = false;
             BtnDelete.Location = new Point(14, 92);
             BtnDelete.Name = "BtnDelete";
             BtnDelete.Size = new Size(140, 34);
@@ -100,6 +101,7 @@
             DdDelProdId.Name = "DdDelProdId";
             DdDelProdId.Size = new Size(119, 33);
             DdDelProdId.TabIndex = 0;
+            DdDelProdId.SelectedIndexChanged += EnableDel;
             // 
             // LblDelProdId
             // 
@@ -138,6 +140,7 @@
             DdModId.Size = new Size(146, 33);
             DdModId.TabIndex = 0;
             DdModId.SelectedIndexChanged += DdModId_SelectedIndexChanged;
+            DdModId.SelectedValueChanged += EnableMod;
             // 
             // DdModStatus
             // 
@@ -148,9 +151,11 @@
             DdModStatus.Name = "DdModStatus";
             DdModStatus.Size = new Size(150, 33);
             DdModStatus.TabIndex = 2;
+            DdModStatus.SelectedIndexChanged += EnableMod;
             // 
             // BtnModify
             // 
+            BtnModify.Enabled = false;
             BtnModify.Location = new Point(18, 205);
             BtnModify.Name = "BtnModify";
             BtnModify.Size = new Size(148, 34);
@@ -175,6 +180,7 @@
             TxtModIntRate.Size = new Size(150, 31);
             TxtModIntRate.TabIndex = 3;
             TxtModIntRate.Text = "0.0";
+            TxtModIntRate.TextChanged += EnableMod;
             // 
             // TxtModProdName
             // 
@@ -182,6 +188,7 @@
             TxtModProdName.Name = "TxtModProdName";
             TxtModProdName.Size = new Size(150, 31);
             TxtModProdName.TabIndex = 1;
+            TxtModProdName.TextChanged += EnableMod;
             // 
             // LblModIntRate
             // 
@@ -275,9 +282,11 @@
             DdStatus.Name = "DdStatus";
             DdStatus.Size = new Size(150, 33);
             DdStatus.TabIndex = 1;
+            DdStatus.SelectedIndexChanged += EnableAdd;
             // 
             // BtnAddProduct
             // 
+            BtnAddProduct.Enabled = false;
             BtnAddProduct.Location = new Point(11, 152);
             BtnAddProduct.Name = "BtnAddProduct";
             BtnAddProduct.Size = new Size(128, 34);
@@ -294,6 +303,7 @@
             TxtNewIntRate.Size = new Size(150, 31);
             TxtNewIntRate.TabIndex = 2;
             TxtNewIntRate.Text = "0.0";
+            TxtNewIntRate.TextChanged += EnableAdd;
             TxtNewIntRate.KeyPress += TxtNewIntRate_KeyPress;
             // 
             // TxtNewProdName
@@ -302,6 +312,7 @@
             TxtNewProdName.Name = "TxtNewProdName";
             TxtNewProdName.Size = new Size(150, 31);
             TxtNewProdName.TabIndex = 0;
+            TxtNewProdName.TextChanged += EnableAdd;
             // 
             // Form3
             // 

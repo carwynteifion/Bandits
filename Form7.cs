@@ -3,6 +3,7 @@ using System.Data.SQLite;
 
 namespace Bandits
 {
+    // View Transactions by Customer
     public partial class Form7 : Form
     {
         public Form7(string InString)
@@ -64,6 +65,8 @@ namespace Bandits
                     """ + DdCustId.Text + ";", Connection2);
                 DataSet ds = new();
                 sda.Fill(ds);
+
+                // Clear rows from ListView, then generate new ones based on customer ID
                 ListCustTranx.Items.Clear();
                 ListCustTranx.BeginUpdate();
                 foreach (DataRow row in ds.Tables[0].Rows)
