@@ -42,6 +42,7 @@ namespace Bandits
                         TsBtnDisconnect.Enabled = true;
                         MenuEdit.Enabled = true;
                         MenuView.Enabled = true;
+                        MenuRun.Enabled = true;
                     }
                 }
                 catch (Exception ex)
@@ -55,6 +56,7 @@ namespace Bandits
                     TsBtnDisconnect.Enabled = false;
                     MenuEdit.Enabled = false;
                     MenuView.Enabled = false;
+                    MenuRun.Enabled = false;
                 }
             }
             else
@@ -80,6 +82,7 @@ namespace Bandits
             TsBtnDisconnect.Enabled = false;
             MenuEdit.Enabled = false;
             MenuView.Enabled = false;
+            MenuRun.Enabled = false;
         }
 
         private void TsDisconnect_Click(object sender, EventArgs e)
@@ -87,11 +90,38 @@ namespace Bandits
             MenuDisconnect_Click(sender, e);
         }
 
-        private void MenuAbout_Click(object sender, EventArgs e)
+        // Run daily interest calculation and update database
+        private void MenuInterestCalc_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Developed by Carwyn Thomas", "About Bandits");
+            try
+            {
+                using SQLiteConnection Connection = new(ConnectionString);
+                using SQLiteCommand Command = Connection.CreateCommand();
+                Command.CommandText = """
+                    UPDATE account AS a
+                    SET accrued = 
+                    ROUND(accrued + (
+                        SELECT (a.balance * product.intrate / 365.0)
+                        FROM product
+                        WHERE a.prodid = product.prodid), 2),
+                    balance =
+                    ROUND(balance + (
+                        SELECT (a.balance * product.intrate / 365.0)
+                        FROM product
+                        WHERE a.prodid = product.prodid), 2);
+                    """;
+                Connection.Open();
+                Command.ExecuteNonQuery();
+                MessageBox.Show("Updated account balances and accrual amounts.", "Interest Calculation");
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
 
+        // Exit the program
         private void MenuExit_Click(object sender, EventArgs e)
         {
             {
@@ -99,7 +129,7 @@ namespace Bandits
             }
         }
 
-        // When close button is clicked, show "are you sure" message box
+        // When an attempt is made to close the app, show "are you sure" message box
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             if (MessageBox.Show("Are you sure you want to quit?", "Quit",
@@ -118,36 +148,48 @@ namespace Bandits
             }
         }
 
-        // Open Modify Customer Details
+        // FORM OPENING FUNCTIONS
+
+        // Open Edit > Manage Customer Details
         private void MenuModifyDetails_Click(object sender, EventArgs e)
         {
             Form2 ModifyCustomer = new(ConnectionString);
             ModifyCustomer.ShowDialog();
         }
 
-        // Open Modify Product
+        // Open Edit > Manage Product
         private void MenuModifyProduct_Click(object sender, EventArgs e)
         {
             Form3 ModifyProduct = new(ConnectionString);
             ModifyProduct.ShowDialog();
         }
 
+        // Open Edit > New Transaction
         private void MenuNewTranx_Click(object sender, EventArgs e)
         {
             Form4 NewTranx = new(ConnectionString);
             NewTranx.ShowDialog();
         }
 
+        // Open View > Total Transactions
         private void MenuTotalTranx_Click(object sender, EventArgs e)
         {
             Form5 ViewTranx = new(ConnectionString);
             ViewTranx.ShowDialog();
         }
 
+        // Open View > Most Valuable Customer
         private void MenuMVC_Click(object sender, EventArgs e)
         {
             Form6 MostValuableCustomer = new(ConnectionString);
             MostValuableCustomer.ShowDialog();
+        }
+
+        // Open View > Transactions by Customer
+        private void TranxByCustomer_Click(object sender, EventArgs e)
+        {
+            Form7 TranxByCustomer = new(ConnectionString);
+            TranxByCustomer.ShowDialog();
         }
     }
 }

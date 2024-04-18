@@ -27,14 +27,13 @@ namespace Bandits
 
                 Connection.Open();
                 int recordsChanged = Command.ExecuteNonQuery();
-                MessageBox.Show(recordsChanged + " product(s) added.", "Modify Product");
+                MessageBox.Show(recordsChanged + " product(s) added.", "Manage Product");
                 Connection.Close();
-                TxtNewProdName.Text = string.Empty;
-                TxtNewIntRate.Text = string.Empty;
+                Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message, "Error");
             }
         }
 
@@ -60,12 +59,13 @@ namespace Bandits
                 Command.Parameters.AddWithValue("intrate", TxtModIntRate.Text);
                 Connection.Open();
                 int recordsChanged = Command.ExecuteNonQuery();
-                MessageBox.Show(recordsChanged.ToString() + " product(s) modified.", "Modify Product");
+                MessageBox.Show(recordsChanged.ToString() + " product(s) modified.", "Manage Product");
                 Connection.Close();
+                Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message, "Error");
             }
         }
 
@@ -77,25 +77,29 @@ namespace Bandits
                 using SQLiteConnection Connection = new(ConnectionString);
                 using SQLiteCommand Command = Connection.CreateCommand();
                 Command.CommandText = @"DELETE FROM product WHERE prodid = @id;";
-                Command.Parameters.AddWithValue("id", Convert.ToInt32(TxtDelProdId.Text));
+                Command.Parameters.AddWithValue("id", Convert.ToInt16(DdDelProdId.Text));
                 Connection.Open();
                 Command.ExecuteNonQuery();
-                MessageBox.Show("Product deleted successfully.", "Modify Product");
+                MessageBox.Show("Product deleted successfully.", "Manage Product");
                 Connection.Close();
+                Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message, "Error");
             }
         }
 
-        private void BtnCancel_Click(object sender, EventArgs e)
+        // Close the form
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             Close();
         }
 
+        // On load, populate dropdowns with product IDs from the database
         private void Form3_Load(object sender, EventArgs e)
         {
+            DdStatus.Text = "open";
             try
             {
                 using SQLiteConnection Connection = new(ConnectionString);
@@ -106,16 +110,18 @@ namespace Bandits
                 while (Reader.Read())
                 {
                     DdModId.Items.Add(Reader.GetInt16(0).ToString());
+                    DdDelProdId.Items.Add(Reader.GetInt16(0).ToString());
                 }
                 Reader.Close();
                 Connection.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message, "Error");
             }
         }
 
+        // Only allow numerics and no more than one decimal point
         private void TxtNewIntRate_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
@@ -128,6 +134,31 @@ namespace Bandits
             if ((e.KeyChar == '.') && (((TextBox)sender).Text.IndexOf('.') > -1))
             {
                 e.Handled = true;
+            }
+        }
+
+        // On product ID selection from dropdown, pull through product details from db
+        private void DdModId_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                using SQLiteConnection Connection = new(ConnectionString);
+                Connection.Open();
+                SQLiteCommand Command = Connection.CreateCommand();
+                Command.CommandText = @"SELECT isaname, status, intrate FROM product WHERE prodid = " + DdModId.Text + ";";
+                using SQLiteDataReader Reader = Command.ExecuteReader();
+                while (Reader.Read())
+                {
+                    TxtModProdName.Text = Reader.GetString(0);
+                    DdModStatus.Text = Reader.GetString(1);
+                    TxtModIntRate.Text = Reader.GetValue(2).ToString();
+                }
+                Reader.Close();
+                Connection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error");
             }
         }
     }

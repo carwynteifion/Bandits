@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form3));
-            BtnCancel = new Button();
+            BtnOK = new Button();
             BtnDelete = new Button();
-            TxtDelProdId = new TextBox();
             TabDeleteProduct = new TabPage();
+            DdDelProdId = new ComboBox();
             LblDelProdId = new Label();
             TabModifyProduct = new TabPage();
             DdModId = new ComboBox();
@@ -59,15 +59,15 @@
             TabNewProduct.SuspendLayout();
             SuspendLayout();
             // 
-            // BtnCancel
+            // BtnOK
             // 
-            BtnCancel.Location = new Point(277, 330);
-            BtnCancel.Name = "BtnCancel";
-            BtnCancel.Size = new Size(128, 34);
-            BtnCancel.TabIndex = 1001;
-            BtnCancel.Text = "Cancel";
-            BtnCancel.UseVisualStyleBackColor = true;
-            BtnCancel.Click += BtnCancel_Click;
+            BtnOK.Location = new Point(277, 330);
+            BtnOK.Name = "BtnOK";
+            BtnOK.Size = new Size(128, 34);
+            BtnOK.TabIndex = 1001;
+            BtnOK.Text = "OK";
+            BtnOK.UseVisualStyleBackColor = true;
+            BtnOK.Click += BtnOK_Click;
             // 
             // BtnDelete
             // 
@@ -79,17 +79,10 @@
             BtnDelete.UseVisualStyleBackColor = true;
             BtnDelete.Click += BtnDelete_Click;
             // 
-            // TxtDelProdId
-            // 
-            TxtDelProdId.Location = new Point(145, 13);
-            TxtDelProdId.Name = "TxtDelProdId";
-            TxtDelProdId.Size = new Size(150, 31);
-            TxtDelProdId.TabIndex = 0;
-            // 
             // TabDeleteProduct
             // 
+            TabDeleteProduct.Controls.Add(DdDelProdId);
             TabDeleteProduct.Controls.Add(BtnDelete);
-            TabDeleteProduct.Controls.Add(TxtDelProdId);
             TabDeleteProduct.Controls.Add(LblDelProdId);
             TabDeleteProduct.Location = new Point(4, 34);
             TabDeleteProduct.Name = "TabDeleteProduct";
@@ -98,6 +91,15 @@
             TabDeleteProduct.TabIndex = 2;
             TabDeleteProduct.Text = "Delete Product";
             TabDeleteProduct.UseVisualStyleBackColor = true;
+            // 
+            // DdDelProdId
+            // 
+            DdDelProdId.DropDownStyle = ComboBoxStyle.DropDownList;
+            DdDelProdId.FormattingEnabled = true;
+            DdDelProdId.Location = new Point(117, 22);
+            DdDelProdId.Name = "DdDelProdId";
+            DdDelProdId.Size = new Size(119, 33);
+            DdDelProdId.TabIndex = 0;
             // 
             // LblDelProdId
             // 
@@ -134,23 +136,25 @@
             DdModId.Location = new Point(203, 26);
             DdModId.Name = "DdModId";
             DdModId.Size = new Size(146, 33);
-            DdModId.TabIndex = 34;
+            DdModId.TabIndex = 0;
+            DdModId.SelectedIndexChanged += DdModId_SelectedIndexChanged;
             // 
             // DdModStatus
             // 
+            DdModStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             DdModStatus.FormattingEnabled = true;
             DdModStatus.Items.AddRange(new object[] { "open", "closed" });
             DdModStatus.Location = new Point(203, 117);
             DdModStatus.Name = "DdModStatus";
             DdModStatus.Size = new Size(150, 33);
-            DdModStatus.TabIndex = 33;
+            DdModStatus.TabIndex = 2;
             // 
             // BtnModify
             // 
             BtnModify.Location = new Point(18, 205);
             BtnModify.Name = "BtnModify";
             BtnModify.Size = new Size(148, 34);
-            BtnModify.TabIndex = 9;
+            BtnModify.TabIndex = 4;
             BtnModify.Text = "Modify Product";
             BtnModify.UseVisualStyleBackColor = true;
             BtnModify.Click += BtnModify_Click;
@@ -270,14 +274,14 @@
             DdStatus.Location = new Point(196, 56);
             DdStatus.Name = "DdStatus";
             DdStatus.Size = new Size(150, 33);
-            DdStatus.TabIndex = 9;
+            DdStatus.TabIndex = 1;
             // 
             // BtnAddProduct
             // 
             BtnAddProduct.Location = new Point(11, 152);
             BtnAddProduct.Name = "BtnAddProduct";
             BtnAddProduct.Size = new Size(128, 34);
-            BtnAddProduct.TabIndex = 8;
+            BtnAddProduct.TabIndex = 3;
             BtnAddProduct.Text = "Add Product";
             BtnAddProduct.UseVisualStyleBackColor = true;
             BtnAddProduct.Click += BtnAddProduct_Click;
@@ -304,14 +308,14 @@
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(422, 392);
-            Controls.Add(BtnCancel);
+            Controls.Add(BtnOK);
             Controls.Add(TabControl);
             FormBorderStyle = FormBorderStyle.Fixed3D;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "Form3";
             SizeGripStyle = SizeGripStyle.Hide;
-            Text = "Modify Product Details";
+            Text = "Manage Products";
             Load += Form3_Load;
             TabDeleteProduct.ResumeLayout(false);
             TabDeleteProduct.PerformLayout();
@@ -325,9 +329,8 @@
 
         #endregion
 
-        private Button BtnCancel;
+        private Button BtnOK;
         private Button BtnDelete;
-        private TextBox TxtDelProdId;
         private TabPage TabDeleteProduct;
         private Label LblDelProdId;
         private TabPage TabModifyProduct;
@@ -349,5 +352,6 @@
         private ComboBox DdStatus;
         private ComboBox DdModStatus;
         private ComboBox DdModId;
+        private ComboBox DdDelProdId;
     }
 }

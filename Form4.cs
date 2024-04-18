@@ -13,6 +13,7 @@ namespace Bandits
 
         readonly string ConnectionString;
 
+        // Populate dropdown with account IDs that have made a transaction
         private void Form4_Load(object sender, EventArgs e)
         {
             try
@@ -31,10 +32,11 @@ namespace Bandits
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message, "Error");
             }
         }
 
+        // Create new deposit or withdrawal record
         private void BtnCreateTranx_Click(object sender, EventArgs e)
         {
             try
@@ -51,19 +53,21 @@ namespace Bandits
                 int recordsChanged = Command.ExecuteNonQuery();
                 MessageBox.Show(recordsChanged + " transaction(s) added.", "New Transaction");
                 Connection.Close();
-                TxtTranxAmt.Text = string.Empty;
+                Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message, "New Transaction");
+                MessageBox.Show("Error: " + ex.Message, "Error");
             }
         }
 
+        // Close the form
         private void BtnCancel_Click(object sender, EventArgs e)
         {
             Close();
         }
 
+        // Only allow numerics and only one decimal point
         private void TxtTranxAmt_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
@@ -76,6 +80,18 @@ namespace Bandits
             if ((e.KeyChar == '.') && (((TextBox)sender).Text.IndexOf('.') > -1))
             {
                 e.Handled = true;
+            }
+        }
+
+        // Allow user to create transaction only when all fields are populated
+        private void EnableCreate(object sender, EventArgs e)
+        {
+            if (DdAccId.Text != "" && TxtTranxAmt.Text != "" && DdTranxType.Text != "")
+            {
+                BtnCreateTranx.Enabled = true;
+            } else
+            {
+                BtnCreateTranx.Enabled = false;
             }
         }
     }

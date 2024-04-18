@@ -13,6 +13,7 @@ namespace Bandits
 
         readonly string ConnectionString;
 
+        // Add up all deposits from set date onwards and display to user
         private void BtnTotalDeposits_Click(object sender, EventArgs e)
         {
             try
@@ -31,10 +32,11 @@ namespace Bandits
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message, "Error");
             }
         }
 
+        // Add up all withdrawals from set date onwards and display to user
         private void BtnTotalWithdrawals_Click(object sender, EventArgs e)
         {
             try
@@ -53,9 +55,11 @@ namespace Bandits
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message, "Error");
             }
         }
+        
+        // Close the form
         private void TranxOk_Click(object sender, EventArgs e)
         {
             Close();

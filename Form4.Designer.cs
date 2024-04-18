@@ -68,6 +68,7 @@
             // 
             // BtnCreateTranx
             // 
+            BtnCreateTranx.Enabled = false;
             BtnCreateTranx.Location = new Point(164, 177);
             BtnCreateTranx.Name = "BtnCreateTranx";
             BtnCreateTranx.Size = new Size(112, 34);
@@ -91,7 +92,8 @@
             TxtTranxAmt.Location = new Point(241, 125);
             TxtTranxAmt.Name = "TxtTranxAmt";
             TxtTranxAmt.Size = new Size(153, 31);
-            TxtTranxAmt.TabIndex = 7;
+            TxtTranxAmt.TabIndex = 2;
+            TxtTranxAmt.TextChanged += EnableCreate;
             TxtTranxAmt.KeyPress += TxtTranxAmt_KeyPress;
             // 
             // DdTranxType
@@ -102,7 +104,8 @@
             DdTranxType.Location = new Point(241, 78);
             DdTranxType.Name = "DdTranxType";
             DdTranxType.Size = new Size(153, 33);
-            DdTranxType.TabIndex = 8;
+            DdTranxType.TabIndex = 1;
+            DdTranxType.SelectedValueChanged += EnableCreate;
             // 
             // DdAccId
             // 
@@ -111,7 +114,8 @@
             DdAccId.Location = new Point(241, 34);
             DdAccId.Name = "DdAccId";
             DdAccId.Size = new Size(153, 33);
-            DdAccId.TabIndex = 9;
+            DdAccId.TabIndex = 0;
+            DdAccId.SelectedValueChanged += EnableCreate;
             // 
             // Form4
             // 

@@ -47,7 +47,7 @@
             TranxDateTime.Location = new Point(290, 9);
             TranxDateTime.Name = "TranxDateTime";
             TranxDateTime.Size = new Size(126, 31);
-            TranxDateTime.TabIndex = 1;
+            TranxDateTime.TabIndex = 0;
             TranxDateTime.Value = new DateTime(2024, 4, 17, 20, 46, 43, 0);
             // 
             // label1
@@ -62,7 +62,7 @@
             // 
             // TranxOk
             // 
-            TranxOk.Location = new Point(64, 200);
+            TranxOk.Location = new Point(172, 225);
             TranxOk.Name = "TranxOk";
             TranxOk.Size = new Size(112, 34);
             TranxOk.TabIndex = 3;
@@ -75,7 +75,7 @@
             BtnTotalDeposits.Location = new Point(11, 64);
             BtnTotalDeposits.Name = "BtnTotalDeposits";
             BtnTotalDeposits.Size = new Size(224, 34);
-            BtnTotalDeposits.TabIndex = 4;
+            BtnTotalDeposits.TabIndex = 1;
             BtnTotalDeposits.Text = "Show Deposits Total";
             BtnTotalDeposits.UseVisualStyleBackColor = true;
             BtnTotalDeposits.Click += BtnTotalDeposits_Click;
@@ -85,7 +85,7 @@
             BtnTotalWithdrawals.Location = new Point(12, 158);
             BtnTotalWithdrawals.Name = "BtnTotalWithdrawals";
             BtnTotalWithdrawals.Size = new Size(223, 34);
-            BtnTotalWithdrawals.TabIndex = 5;
+            BtnTotalWithdrawals.TabIndex = 2;
             BtnTotalWithdrawals.Text = "Show Withdrawals Total";
             BtnTotalWithdrawals.UseVisualStyleBackColor = true;
             BtnTotalWithdrawals.Click += BtnTotalWithdrawals_Click;

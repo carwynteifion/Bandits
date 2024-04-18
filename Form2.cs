@@ -34,16 +34,9 @@ namespace Bandits
                 Command.Parameters.AddWithValue("allowance", TxtNewAllowance.Text);
                 Connection.Open();
                 int recordsChanged = Command.ExecuteNonQuery();
-                MessageBox.Show(recordsChanged + " record(s) added", "Modify Customer Details");
+                MessageBox.Show(recordsChanged + " record(s) added", "Manage Customer Details");
                 Connection.Close();
-                TxtNewTitle.Text = string.Empty;
-                TxtNewFirstName.Text = string.Empty;
-                TxtNewLastName.Text = string.Empty;
-                TxtNewDob.Text = string.Empty;
-                TxtNewNi.Text = string.Empty;
-                TxtNewEmail.Text = string.Empty;
-                TxtNewPassword.Text = string.Empty;
-                TxtNewAllowance.Text = string.Empty;
+                Close();
             }
             catch (Exception ex)
             {
@@ -86,12 +79,13 @@ namespace Bandits
                 Command.Parameters.AddWithValue("allowance", TxtModAllowance.Text);
                 Connection.Open();
                 int recordsChanged = Command.ExecuteNonQuery();
-                MessageBox.Show(recordsChanged + " record(s) modified", "Modify Customer Details");
+                MessageBox.Show(recordsChanged + " record(s) modified", "Manage Customer Details");
                 Connection.Close();
+                Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message, "Error");
             }
         }
 
@@ -103,23 +97,26 @@ namespace Bandits
                 using SQLiteConnection Connection = new(ConnectionString);
                 using SQLiteCommand Command = Connection.CreateCommand();
                 Command.CommandText = @"DELETE FROM customer WHERE custid = @id;";
-                Command.Parameters.AddWithValue("id", Convert.ToInt32(TxtDelCustId.Text));
+                Command.Parameters.AddWithValue("id", Convert.ToInt32(DdDelId.Text));
                 Connection.Open();
                 Command.ExecuteNonQuery();
-                MessageBox.Show("Record deleted successfully.", "Modify Customer Details");
+                MessageBox.Show("Record deleted successfully.", "Manage Customer Details");
                 Connection.Close();
+                Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message, "Error");
             }
         }
 
-        private void BtnCancel_Click(object sender, EventArgs e)
+        // Close the form
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             Close();
         }
 
+        // Only allow numericals and no more than one decimal point
         private void TxtNewAllowance_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
@@ -135,6 +132,7 @@ namespace Bandits
             }
         }
 
+        // On load, populate ID dropdowns with ID list from database
         private void Form2_Load(object sender, EventArgs e)
         {
             try
@@ -147,6 +145,7 @@ namespace Bandits
                 while (Reader.Read())
                 {
                     DdModId.Items.Add(Reader.GetInt16(0).ToString());
+                    DdDelId.Items.Add(Reader.GetInt16(0).ToString());
                 }
                 Reader.Close();
                 Connection.Close();
@@ -157,6 +156,7 @@ namespace Bandits
             }
         }
 
+        // When ID is selected, pull through other customer details from db
         private void DdModId_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -164,11 +164,18 @@ namespace Bandits
                 using SQLiteConnection Connection = new(ConnectionString);
                 Connection.Open();
                 SQLiteCommand Command = Connection.CreateCommand();
-                Command.CommandText = @"SELECT dob FROM customer WHERE custid = " + DdModId.Text + ";";
+                Command.CommandText = @"SELECT title, firstname, lastname, dob, nicode, email, password, allowance FROM customer WHERE custid = " + DdModId.Text + ";";
                 using SQLiteDataReader Reader = Command.ExecuteReader();
                 while (Reader.Read())
                 {
-                    TxtModDob.Text = Reader.GetString(0);
+                    TxtModTitle.Text = Reader.GetString(0);
+                    TxtModFirstName.Text = Reader.GetString(1);
+                    TxtModLastName.Text = Reader.GetString(2);
+                    TxtModDob.Text = Reader.GetString(3);
+                    TxtModNi.Text = Reader.GetString(4);
+                    TxtModEmail.Text = Reader.GetString(5);
+                    TxtModPassword.Text = Reader.GetString(6);
+                    TxtModAllowance.Text = Reader.GetValue(7).ToString();
                 }
                 Reader.Close();
                 Connection.Close();

@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System.Data;
 using System.Data.SQLite;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Bandits
 {
@@ -19,7 +11,7 @@ namespace Bandits
             ConnectionString = InString;
             StartPosition = FormStartPosition.CenterScreen;
             ListMVC.View = View.Details;
-            ListMVC.Columns.Add("Customer ID", 100, HorizontalAlignment.Left);
+            ListMVC.Columns.Add("Customer ID", 120, HorizontalAlignment.Left);
             ListMVC.Columns.Add("Name", 180, HorizontalAlignment.Left);
             ListMVC.Columns.Add("Total Held", 100, HorizontalAlignment.Left);
         }
@@ -32,8 +24,7 @@ namespace Bandits
             {
                 using SQLiteConnection Connection = new(ConnectionString);
                 Connection.Open();
-                SQLiteDataAdapter sda = new(@"SELECT c.custid AS 'Customer ID', c.title || ' ' || c.firstname || ' ' || c.lastname AS 'Name', ROUND(SUM(a.balance), 2) AS 'Total Held' FROM customer c JOIN account a ON c.custid = a.custid GROUP BY c.custid ORDER BY SUM(a.balance) DESC;
-", Connection);
+                SQLiteDataAdapter sda = new(@"SELECT c.custid AS 'Customer ID', c.title || ' ' || c.firstname || ' ' || c.lastname AS 'Name', ROUND(SUM(a.balance), 2) AS 'Total Held' FROM customer c JOIN account a ON c.custid = a.custid GROUP BY c.custid ORDER BY SUM(a.balance) DESC;", Connection);
                 DataSet ds = new();
                 sda.Fill(ds);
 
@@ -53,7 +44,7 @@ namespace Bandits
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message);
+                MessageBox.Show("Error: " + ex.Message, "Error");
             }
         }
 

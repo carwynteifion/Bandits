@@ -69,10 +69,10 @@
             LblModFirstName = new Label();
             LblModTitle = new Label();
             TabDeleteCustomer = new TabPage();
+            DdDelId = new ComboBox();
             BtnDelete = new Button();
-            TxtDelCustId = new TextBox();
             LblDelCustId = new Label();
-            BtnCancel = new Button();
+            BtnOK = new Button();
             TabControl.SuspendLayout();
             TabNewCustomer.SuspendLayout();
             TabModifyCustomer.SuspendLayout();
@@ -124,7 +124,7 @@
             TxtNewDob.Location = new Point(196, 135);
             TxtNewDob.Name = "TxtNewDob";
             TxtNewDob.Size = new Size(150, 31);
-            TxtNewDob.TabIndex = 9;
+            TxtNewDob.TabIndex = 3;
             TxtNewDob.Value = new DateTime(2024, 4, 14, 0, 0, 0, 0);
             // 
             // BtnAddRecord
@@ -451,8 +451,8 @@
             // 
             // TabDeleteCustomer
             // 
+            TabDeleteCustomer.Controls.Add(DdDelId);
             TabDeleteCustomer.Controls.Add(BtnDelete);
-            TabDeleteCustomer.Controls.Add(TxtDelCustId);
             TabDeleteCustomer.Controls.Add(LblDelCustId);
             TabDeleteCustomer.Location = new Point(4, 34);
             TabDeleteCustomer.Name = "TabDeleteCustomer";
@@ -461,6 +461,15 @@
             TabDeleteCustomer.TabIndex = 2;
             TabDeleteCustomer.Text = "Delete Customer";
             TabDeleteCustomer.UseVisualStyleBackColor = true;
+            // 
+            // DdDelId
+            // 
+            DdDelId.DropDownStyle = ComboBoxStyle.DropDownList;
+            DdDelId.FormattingEnabled = true;
+            DdDelId.Location = new Point(129, 19);
+            DdDelId.Name = "DdDelId";
+            DdDelId.Size = new Size(125, 33);
+            DdDelId.TabIndex = 0;
             // 
             // BtnDelete
             // 
@@ -472,13 +481,6 @@
             BtnDelete.UseVisualStyleBackColor = true;
             BtnDelete.Click += BtnDelete_Click;
             // 
-            // TxtDelCustId
-            // 
-            TxtDelCustId.Location = new Point(145, 13);
-            TxtDelCustId.Name = "TxtDelCustId";
-            TxtDelCustId.Size = new Size(150, 31);
-            TxtDelCustId.TabIndex = 0;
-            // 
             // LblDelCustId
             // 
             LblDelCustId.AutoSize = true;
@@ -488,29 +490,29 @@
             LblDelCustId.TabIndex = 0;
             LblDelCustId.Text = "Customer ID";
             // 
-            // BtnCancel
+            // BtnOK
             // 
-            BtnCancel.Location = new Point(300, 502);
-            BtnCancel.Name = "BtnCancel";
-            BtnCancel.Size = new Size(128, 34);
-            BtnCancel.TabIndex = 999;
-            BtnCancel.Text = "Cancel";
-            BtnCancel.UseVisualStyleBackColor = true;
-            BtnCancel.Click += BtnCancel_Click;
+            BtnOK.Location = new Point(300, 502);
+            BtnOK.Name = "BtnOK";
+            BtnOK.Size = new Size(128, 34);
+            BtnOK.TabIndex = 999;
+            BtnOK.Text = "OK";
+            BtnOK.UseVisualStyleBackColor = true;
+            BtnOK.Click += BtnOK_Click;
             // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(444, 548);
-            Controls.Add(BtnCancel);
+            Controls.Add(BtnOK);
             Controls.Add(TabControl);
             FormBorderStyle = FormBorderStyle.Fixed3D;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "Form2";
             SizeGripStyle = SizeGripStyle.Hide;
-            Text = "Modify Customer Details";
+            Text = "Manage Customer Details";
             Load += Form2_Load;
             TabControl.ResumeLayout(false);
             TabNewCustomer.ResumeLayout(false);
@@ -544,10 +546,9 @@
         private Label LblNewEmail;
         private Label LblNewNi;
         private Label LblNewDob;
-        private Button BtnCancel;
+        private Button BtnOK;
         private Button BtnAddRecord;
         private Button BtnDelete;
-        private TextBox TxtDelCustId;
         private Label LblDelCustId;
         private Label LblModId;
         private TextBox TxtModFirstName;
@@ -568,5 +569,6 @@
         private Button BtnModify;
         private DateTimePicker TxtModDob;
         private ComboBox DdModId;
+        private ComboBox DdDelId;
     }
 }

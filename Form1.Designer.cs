@@ -42,8 +42,9 @@
             MenuView = new ToolStripMenuItem();
             MenuTotalTranx = new ToolStripMenuItem();
             MenuMVC = new ToolStripMenuItem();
-            MenuHelp = new ToolStripMenuItem();
-            MenuAbout = new ToolStripMenuItem();
+            TranxByCustomer = new ToolStripMenuItem();
+            MenuRun = new ToolStripMenuItem();
+            MenuInterestCalc = new ToolStripMenuItem();
             openFileDialog1 = new OpenFileDialog();
             ToolStrip = new ToolStrip();
             TsBtnConnectTo = new ToolStripButton();
@@ -51,18 +52,20 @@
             TsBtnDisconnect = new ToolStripButton();
             StatusStrip = new StatusStrip();
             ConnectionStatus = new ToolStripStatusLabel();
-            pictureBox1 = new PictureBox();
+            leeVanCleef = new PictureBox();
             label1 = new Label();
+            bulletholes = new PictureBox();
             menuStrip1.SuspendLayout();
             ToolStrip.SuspendLayout();
             StatusStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)leeVanCleef).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)bulletholes).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(24, 24);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, MenuEdit, MenuView, MenuHelp });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, MenuEdit, MenuView, MenuRun });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(800, 33);
@@ -116,27 +119,27 @@
             // 
             MenuModifyDetails.DoubleClickEnabled = true;
             MenuModifyDetails.Name = "MenuModifyDetails";
-            MenuModifyDetails.Size = new Size(323, 34);
-            MenuModifyDetails.Text = "Modify Customer Details...";
+            MenuModifyDetails.Size = new Size(330, 34);
+            MenuModifyDetails.Text = "Manage Customer Details...";
             MenuModifyDetails.Click += MenuModifyDetails_Click;
             // 
             // MenuModifyProduct
             // 
             MenuModifyProduct.Name = "MenuModifyProduct";
-            MenuModifyProduct.Size = new Size(323, 34);
-            MenuModifyProduct.Text = "Modify Product...";
+            MenuModifyProduct.Size = new Size(330, 34);
+            MenuModifyProduct.Text = "Manage Products...";
             MenuModifyProduct.Click += MenuModifyProduct_Click;
             // 
             // MenuNewTranx
             // 
             MenuNewTranx.Name = "MenuNewTranx";
-            MenuNewTranx.Size = new Size(323, 34);
+            MenuNewTranx.Size = new Size(330, 34);
             MenuNewTranx.Text = "New Transaction...";
             MenuNewTranx.Click += MenuNewTranx_Click;
             // 
             // MenuView
             // 
-            MenuView.DropDownItems.AddRange(new ToolStripItem[] { MenuTotalTranx, MenuMVC });
+            MenuView.DropDownItems.AddRange(new ToolStripItem[] { MenuTotalTranx, MenuMVC, TranxByCustomer });
             MenuView.Enabled = false;
             MenuView.Name = "MenuView";
             MenuView.Size = new Size(65, 29);
@@ -156,19 +159,27 @@
             MenuMVC.Text = "Most Valuable Customer...";
             MenuMVC.Click += MenuMVC_Click;
             // 
-            // MenuHelp
+            // TranxByCustomer
             // 
-            MenuHelp.DropDownItems.AddRange(new ToolStripItem[] { MenuAbout });
-            MenuHelp.Name = "MenuHelp";
-            MenuHelp.Size = new Size(65, 29);
-            MenuHelp.Text = "Help";
+            TranxByCustomer.Name = "TranxByCustomer";
+            TranxByCustomer.Size = new Size(342, 34);
+            TranxByCustomer.Text = "Transactions by Customer...";
+            TranxByCustomer.Click += TranxByCustomer_Click;
             // 
-            // MenuAbout
+            // MenuRun
             // 
-            MenuAbout.Name = "MenuAbout";
-            MenuAbout.Size = new Size(176, 34);
-            MenuAbout.Text = "About...";
-            MenuAbout.Click += MenuAbout_Click;
+            MenuRun.DropDownItems.AddRange(new ToolStripItem[] { MenuInterestCalc });
+            MenuRun.Enabled = false;
+            MenuRun.Name = "MenuRun";
+            MenuRun.Size = new Size(59, 29);
+            MenuRun.Text = "Run";
+            // 
+            // MenuInterestCalc
+            // 
+            MenuInterestCalc.Name = "MenuInterestCalc";
+            MenuInterestCalc.Size = new Size(270, 34);
+            MenuInterestCalc.Text = "Interest Calculation";
+            MenuInterestCalc.Click += MenuInterestCalc_Click;
             // 
             // openFileDialog1
             // 
@@ -227,15 +238,15 @@
             ConnectionStatus.Size = new Size(143, 25);
             ConnectionStatus.Text = "Disconnected";
             // 
-            // pictureBox1
+            // leeVanCleef
             // 
-            pictureBox1.Image = Properties.Resources.lvc2;
-            pictureBox1.Location = new Point(12, 69);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(236, 346);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 3;
-            pictureBox1.TabStop = false;
+            leeVanCleef.Image = Properties.Resources.lvc2;
+            leeVanCleef.Location = new Point(12, 69);
+            leeVanCleef.Name = "leeVanCleef";
+            leeVanCleef.Size = new Size(236, 346);
+            leeVanCleef.SizeMode = PictureBoxSizeMode.StretchImage;
+            leeVanCleef.TabIndex = 3;
+            leeVanCleef.TabStop = false;
             // 
             // label1
             // 
@@ -248,13 +259,24 @@
             label1.Text = "Welcome to the\r\nBank of\r\nOutlaw Hess";
             label1.TextAlign = ContentAlignment.TopCenter;
             // 
+            // bulletholes
+            // 
+            bulletholes.Image = Properties.Resources.bulletholes;
+            bulletholes.Location = new Point(254, 286);
+            bulletholes.Name = "bulletholes";
+            bulletholes.Size = new Size(128, 129);
+            bulletholes.SizeMode = PictureBoxSizeMode.StretchImage;
+            bulletholes.TabIndex = 5;
+            bulletholes.TabStop = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(bulletholes);
             Controls.Add(label1);
-            Controls.Add(pictureBox1);
+            Controls.Add(leeVanCleef);
             Controls.Add(StatusStrip);
             Controls.Add(ToolStrip);
             Controls.Add(menuStrip1);
@@ -271,7 +293,8 @@
             ToolStrip.PerformLayout();
             StatusStrip.ResumeLayout(false);
             StatusStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)leeVanCleef).EndInit();
+            ((System.ComponentModel.ISupportInitialize)bulletholes).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -281,8 +304,6 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem MenuEdit;
         private ToolStripMenuItem MenuView;
-        private ToolStripMenuItem MenuHelp;
-        private ToolStripMenuItem MenuAbout;
         private OpenFileDialog openFileDialog1;
         private ToolStrip ToolStrip;
         private ToolStripButton TsBtnConnectTo;
@@ -293,7 +314,7 @@
         private ToolStripMenuItem MenuExit;
         private ToolStripMenuItem MenuDisconnect;
         private ToolStripSeparator toolStripSeparator1;
-        private PictureBox pictureBox1;
+        private PictureBox leeVanCleef;
         private ToolStripButton TsBtnDisconnect;
         private Label label1;
         private ToolStripMenuItem MenuModifyDetails;
@@ -302,5 +323,9 @@
         private ToolStripMenuItem MenuNewTranx;
         private ToolStripMenuItem MenuTotalTranx;
         private ToolStripMenuItem MenuMVC;
+        private ToolStripMenuItem MenuRun;
+        private ToolStripMenuItem MenuInterestCalc;
+        private PictureBox bulletholes;
+        private ToolStripMenuItem TranxByCustomer;
     }
 }
